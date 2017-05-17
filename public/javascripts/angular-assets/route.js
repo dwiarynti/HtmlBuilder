@@ -3,7 +3,7 @@
     "ui.router",
     "oc.lazyLoad",
     "common.services", 
-    "dndLists"]);
+    "ngDragDrop"]);
 
 app.config([
     '$stateProvider', '$urlRouterProvider',
@@ -17,6 +17,10 @@ app.config([
             .state('profile', {
                     url: '/home',
                     templateUrl: '/javascripts/angular-assets/partialviews/home.html'
+            })
+            .state('dnd', {
+                    url: '/dnd',
+                    templateUrl: '/javascripts/angular-assets/partialviews/dnd.html'
             });
     }
 
