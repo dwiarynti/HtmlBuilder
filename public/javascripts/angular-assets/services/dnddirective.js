@@ -43,7 +43,7 @@ app.directive('droppable', function() {
           e.dataTransfer.dropEffect = 'move';
           // allows us to drop
           if (e.preventDefault) e.preventDefault();
-          this.classList.add('over');
+          // this.classList.add('over');
           return false;
         },
         false
@@ -52,7 +52,9 @@ app.directive('droppable', function() {
       el.addEventListener(
         'dragenter',
         function(e) {
-          this.classList.add('over');
+          if(this.childNodes.length == 0){
+            this.classList.add('over');
+          }
           return false;
         },
         false
@@ -77,7 +79,10 @@ app.directive('droppable', function() {
           
           var binId = this.id;
           var item = document.getElementById(e.dataTransfer.getData('Text'));
-          this.appendChild(item);
+          console.log(this);
+          if(this.childNodes.length == 0){
+            this.appendChild(item);
+          }
           // call the passed drop function
           scope.$apply(function(scope) {
             var fn = scope.drop();
