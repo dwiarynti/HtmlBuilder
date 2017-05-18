@@ -11,7 +11,8 @@ var expresssession = require('express-session');
 var esnsureLoggedIn = require('connect-ensure-login').ensureLoggedIn;
 
 var index = require('./routes/index');
-
+var generatehtml = require('./routes/generatehtml');
+var subject = require('./routes/subject')
 var app = express();
 
 
@@ -35,7 +36,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
 // app.use('/', index);
-
+app.use('/api',generatehtml);
+app.use('/api',subject);
 app.get('/', function(req, res){
   res.sendfile('index.html',{user : req.user});
 });
