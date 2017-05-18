@@ -3,7 +3,8 @@
     "ui.router",
     "oc.lazyLoad",
     "common.services", 
-    "ngDragDrop"]);
+    "ngDragDrop",
+    "ngSanitize"]);
 
 app.config([
     '$stateProvider', '$urlRouterProvider',
@@ -21,6 +22,10 @@ app.config([
             .state('dnd', {
                     url: '/dnd',
                     templateUrl: '/javascripts/angular-assets/partialviews/dnd.html'
+            })
+            .state('layout', {
+                    url: '/layout',
+                    templateUrl: '/javascripts/angular-assets/partialviews/layout.html'
             });
     }
 

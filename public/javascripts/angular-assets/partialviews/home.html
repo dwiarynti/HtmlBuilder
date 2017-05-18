@@ -8,10 +8,15 @@
 
 
 
-<div class="box">
-  <div class="box-body">
-    <h1>Hello!</h1>
-    <br>
-  
-  </div>
+<div class="box" ng-controller="generatecontroller">
+  <div class="box-body" >
+    
+    <div ng-repeat="data in init" >
+      <div dynamic="data.element" id="editor" ></div>
+    </div>
+     
+   
+   
+</div>
+ <button class="btn" ng-click="SaveClick()">Click</button>
 </div>
