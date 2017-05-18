@@ -1,13 +1,205 @@
 <div class="box" ng-controller="dndcontroller">
   <div class="box-body">
-    <div class="row">
-      <div class="col-md-4">
-        <div ng-repeat="obj in panel">
-          {{obj}}
-        </div>
-      </div>
-      <div class="col-md-8"></div>
+
+<div class="row">
+  <div class="col-md-2">
+    <div dnd-list="panel" dnd-drop="false">
+    <div ng-repeat="item in panel" ng-style="{'background-color':item.color}"
+        dnd-draggable="item" 
+        dnd-effect-allowed="copy"
+        dnd-selected="stafflist.selected = item"
+        ng-class="{'selected': staffList.selected === item}"
+        dnd-dragstart="dragstart(event, item)" >
+        {{item.value}}
     </div>
+</div>
   </div>
+<div class="col-md-10">
+  <div class="col-md-3" ng-repeat="obj in holderbox" dnd-list="selected" dnd-inserted="dragOver(obj)" dnd-drop="onDrop(item, index, obj)"  class="dndPlaceholder" ng-style="obj.dragover == true ?{'border-style': 'dotted'}: {}" style="background-color:antiquewhite;height:70px">
+    {{obj.dragover}}
+
+    <div ng-show="obj.dragover == true">test</div>
+    <!--<h6>{{obj.name}}</h6>    -->
+    <!--<div ng-repeat="item in obj.element" ng-style="{'background-color':item.color}" ng-bind-html="item">-->
+    <div ng-repeat="item in obj.element" ng-bind-html="item">
+        <!--{{item.value}}-->
+    </div>
+</div>
+</div>
 </div>
 
+-------------------------------grid-----------------------------
+
+<div ng-app="dragDrop" ng-controller="DragDropCtrl">
+  <div class="row">
+  <div class="col-md-2">
+       <div ng-style="{'background-color':item.color}" id="item{{ item }}" ng-repeat="item in panel" draggable item="item">{{ item.value }}</div>
+ </div>
+ <div class="col-md-10">
+  <div class="col-md-3" droppable drop="handleDrop" ng-repeat="bin in holderbox" bin="bin" id="bin{{ bin }}" style="height:70px"></div>   
+ </div>
+ </div>
+  
+</div>
+
+
+    
+   
+  </md-content>
+
+
+
+    <!--<div class="row">
+      <div class="col-md-2">
+        <div ng-repeat="obj in panel" ng-style="{'background-color':obj.color}" draggable="true" draggable-type="custom-object" draggable-data="obj">
+          {{obj.value}}
+        </div>
+      </div>
+      <div class="col-md-10" >
+        <div class="col-md-3" ng-repeat="obj in holderbox" style="background-color:antiquewhite">
+          <h6>{{obj.name}}</h6>
+						<div drop="onDrop($event)" style="height: 70px;background-color:gray" drop-accept="'json/custom-object'" drag-over="onDragOver($event)" drag-over-class="drag-over-accept">
+                
+            </div>
+					</div>
+      </div>
+    </div>
+<br>
+---------------------dndlist-----------------------
+<br>
+        <div class="row">
+            <div class="col-md-2">
+                       <div dnd-list="panel" dnd-drop="false">
+                            <div ng-repeat="obj in panel" ng-style="{'background-color':obj.color}"
+                                dnd-draggable="item" 
+                                dnd-effect-allowed="copy"
+                                dnd-selected="panel.selected = item">
+                                {{obj.value}}
+                            </div>
+                        </div>
+            </div>
+            <div class="col-md-10">
+                  <div class="col-md-3" ng-repeat="obj in holderbox" style="background-color:lightblue">
+                      <h6>{{obj.name}}</h6>
+                          <div dnd-list="orderedItems" dnd-drop="onDrop(item)" style="height: 70px;background-color:gray" ng-bind-html="obj.element" >
+                            <div class="columnangular" ng-repeat="item in orderedItems" >
+                              {{item.value}}
+                            </div>
+                          </div>
+                  </div>              
+            </div>
+        </div>
+
+<br>
+-------------------------------grid-----------------------------
+<br>
+<div class="row">
+            <div class="col-md-2">
+                       <div ng-repeat="item in customItems" style="background-color:lightblue">
+                        </div>
+            </div>
+<div class="col-md-10">
+      <div gridster="gridsterOpts">
+        <ul>
+            <li gridster-item="customItemMap" ng-repeat="item in customItems" style="background-color:lightblue">
+                <input type="text" integer ng-model="item.position[0]" size="1" />,
+                <input type="text" integer ng-model="item.position[1]" size="1" />
+                <br />
+                <input type="text" integer ng-model="item.size.x" size="1" />x
+                <input type="text" integer ng-model="item.size.y" size="1" />
+            </li>
+        </ul>
+    </div>
+
+</div>
+
+    </div>-->
+
+
+
+</div>
+  </div>
+
+<style>
+  /**
+* Copied directly from Marcel's CSS (except the dropHolderPlace class)
+ * The dnd-list should always have a min-height,
+ * otherwise you can't drop to it once it's empty
+ */
+.simpleDemo ul[dnd-list] {
+    min-height: 42px;
+    padding-left: 0px;
+}
+
+/**
+ * The dndDraggingSource class will be applied to
+ * the source element of a drag operation. It makes
+ * sense to hide it to give the user the feeling
+ * that he's actually moving it.
+ */
+.simpleDemo ul[dnd-list] .dndDraggingSource {
+    display: none;
+}
+
+/**
+ * An element with .dndPlaceholder class will be
+ * added to the dnd-list while the user is dragging
+ * over it.
+ */
+.simpleDemo ul[dnd-list] .dndPlaceholder {
+    background-color: #ddd;
+    display: block;
+    min-height: 42px;
+}
+
+.simpleDemo ul[dnd-list] li {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
+    display: block;
+    padding: 10px 15px;
+    margin-bottom: -1px;
+}
+.dropPlaceHolder {
+  height: 3em;
+  width:100%;
+  background-color:#ddd;
+}
+/**
+ * Show selected elements in green
+ */
+.simpleDemo ul[dnd-list] li.selected {
+    background-color: #dff0d8;
+    color: #3c763d;
+}
+
+/*baru*/
+/*%content {
+  font-size: 32px;
+  text-align: center;
+  margin: 0 5px;
+}*/
+.bin {
+  /*@extend %content;*/
+  min-height: 150px;
+  min-width: 150px;
+  float: left;
+  border: 1px solid red;
+  padding: 20px;
+}
+.item {
+  /*@extend %content;*/
+  min-height: 150px;
+  min-width: 150px;
+  background: blue;
+  float: right;
+  transition: all 0.2s ease;
+}
+.drag {
+  opacity: 0.5;
+}
+.over {
+  border-style: groove;
+}
+</style>

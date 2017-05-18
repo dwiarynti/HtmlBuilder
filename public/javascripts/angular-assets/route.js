@@ -3,7 +3,10 @@
     "ui.router",
     "oc.lazyLoad",
     "common.services", 
-    "ngDragDrop"]);
+//     "draganddrop",
+    "dndLists",
+    "ngSanitize",
+    "gridster"]);
 
 app.config([
     '$stateProvider', '$urlRouterProvider',
