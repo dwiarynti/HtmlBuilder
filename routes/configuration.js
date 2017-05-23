@@ -21,3 +21,15 @@ router.post('/configurationform/create', function(req,res)
 		});
 	}
 });
+
+router.get('/configurationform/init', function(req,res)
+{
+		ConfigurationFromcollection.find({"formname":"Profile","IsActive" : true}, function(err, obj){
+		if(err) {res.json(500, err);}
+		else
+        { 
+          res.json({'Obj': obj, success: true});
+        }
+	});
+});
+module.exports = router;
