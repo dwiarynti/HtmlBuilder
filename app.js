@@ -12,6 +12,7 @@ var esnsureLoggedIn = require('connect-ensure-login').ensureLoggedIn;
 
 var index = require('./routes/index');
 var generatehtml = require('./routes/generatehtml');
+var configcomposer = require('./routes/configuration')
 var subject = require('./routes/subject')
 var app = express();
 
@@ -38,6 +39,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // app.use('/', index);
 app.use('/api',generatehtml);
 app.use('/api',subject);
+app.use('.api',configcomposer);
 app.get('/', function(req, res){
   res.sendfile('index.html',{user : req.user});
 });
